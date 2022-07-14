@@ -25,7 +25,7 @@ const getApiInfo = async () => {
             rating:el.rating,
             platforms:el.platforms.map(el=>el.platform.name),
             img:el.background_image,
-            genres: el.genres.map(el=>el.name),
+            genres: el.genres.map(el=>el.name +" - "),
         }
     }); return infoTotal
 }
@@ -104,14 +104,30 @@ router.post(`/Videogames`, async (req,res)=> {
     res.send("Tu videojuego fue creado con exito")
 })
 
-router.get("/videogames/:id", async (req,res) => {
-    const {id} = req.params
-    const videogamesTotal= await getAllVideogames()
-    if(id){
-        let videogamesId = await videogamesTotal.filter(el => el.id == id)
-        videogamesId.length ?
-        res.status(200).json(videogamesId) :
-        res.status(404).send("No encontre ese videojuego")
+router.get("/Videogames/:id", async (req,res) => {
+    try {
+        const idVideogame = req.params.id;
+        let juegos
+        if(typeof idVideogame === 'string' && idVideogame.length > 8){
+            juegos = await Videogame.findByPk(idVideogame)
+            res.send(juegos)
+        }else{
+     juegos = await axios.get(`https://api.rawg.io/api/games/${idVideogame}?key=${API_KEY}`)
+            juegos = juegos.data;
+            juegos = {
+                id: juegos.id,
+                name: juegos.name,
+                released: juegos.released,
+                image: juegos.background_image,
+                platforms: juegos.platforms.map(e => e.platform.name + " - "),
+                description: juegos.description,
+                rating: juegos.rating,
+                genres : juegos.genres.map(genre => genre.name + " - ")
+            }
+        }
+        res.send(juegos)
+        }catch(error){
+            next(error)
     }
 })
 
