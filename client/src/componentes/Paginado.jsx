@@ -1,7 +1,8 @@
 import React from "react";
+import styles from "./Paginado.module.css"
 
 export default function Paginado({videogamesPerPage, AllVideogames, paginado}){
-    const pageNumbers = []  // ME VA A QUEDAR UN ARREGLO COMO [1,2,3...]
+    const pageNumbers = []
 // CON EL FOR VOY A IR PUSHEANDO TODOS LOS NUMEROS POSIBLES DE PAGINA.
     for( let i=0; i < Math.ceil(AllVideogames/videogamesPerPage); i++){
         pageNumbers.push(i +1)
@@ -12,8 +13,8 @@ export default function Paginado({videogamesPerPage, AllVideogames, paginado}){
           <ul className="paginado">
             {pageNumbers && pageNumbers.map(number => {return(
               
-              <li className="cualquiercosa" key={number}>
-                <button onClick={(e) => paginado(number)}>
+              <li className={styles.numbers} key={number}>
+                <button className={styles.btn} onClick={(e) => paginado(number)}>
                   {number}
                 </button>
               </li>

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import {Link , useHistory} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {postVideogame , getGenres} from "../actions"
+import styles from './Paginado.module.css'
 
 function validate (input){
     let errors ={};
@@ -103,58 +104,33 @@ export default function VideogameCreate () {
            
             <form>
                 <div>
-                    <label>nombre</label>
-                    <input
-                    type="text"
-                    value={input.name}
-                    name="name"
-                    onChange={e=> handleChange(e)}
-                    />
+                    <label className= {styles.name}>nombre</label>
+                    <input className= {styles.name} type="text" value={input.name} name="name" onChange={e=> handleChange(e)}/>
                     {errors.name && (
                         <p>{errors.name}</p>
                     )}
                 </div>
                 <div>
-                    <label>descripcion</label>
-                    <input
-                    type="text"
-                    value={input.description}
-                    name="description"
-                    onChange={e=> handleChange(e)}
-                    />
+                    <label className= {styles.name}>descripcion</label>
+                    <input className= {styles.name} type="text" value={input.description} name="description" onChange={e=> handleChange(e)}/>
                        {errors.description && (
                         <p>{errors.description}</p>
                     )}
                 </div>
                 <div>
-                    <label>lanzamiento</label>
-                    <input
-                    type="date"
-                    value={input.released}
-                    name="released"
-                    onChange={e=> handleChange(e)}
-                    />
+                    <label className= {styles.name}>lanzamiento</label>
+                    <input className= {styles.name} type="date" value={input.released} name="released" onChange={e=> handleChange(e)}/>
                 </div>
                 <div>
-                    <label>rating</label>
-                    <input
-                    type="text"
-                    value={input.rating}
-                    name="rating"
-                    onChange={e=> handleChange(e)}
-                    />
+                    <label className= {styles.name}>rating</label>
+                    <input className= {styles.name} type="text" value={input.rating} name="rating" onChange={e=> handleChange(e)}/>
                        {errors.rating && (
                         <p>{errors.rating}</p>
                     )}
                 </div>
                 <div>
-                    <label>imagen</label>
-                    <input
-                    type="text"
-                    value={input.img}
-                    name="img"
-                    onChange={e=> handleChange(e)}
-                    />
+                    <label className= {styles.name}>imagen</label>
+                    <input className= {styles.name} type="text" value={input.img} name="img" onChange={e=> handleChange(e)}/>
                 </div>
                 <label >Genre </label>
                 <select onChange={(e)=> handleSelect(e)}>
@@ -166,12 +142,11 @@ export default function VideogameCreate () {
                    {platforms?.map((platforms) => (<option value={platforms.name}>{platforms.name}</option>))}
                </select> 
                <div/>
-                <button type="Submit" onClick={(e)=>handleSubmit(e)}> Submit </button>
-
+                <button className= {styles.btn} type="Submit" onClick={(e)=>handleSubmit(e)}> Submit </button>
                 {input.platforms.map(el=>
                     <div>
                     <p>{el}</p>
-                    <button onClick={()=> {handleDelete2(el)}}>X</button>
+                    <label onClick={()=> {handleDelete2(el)}}>X</label>
                     </div>
                     )}
                     <div></div>
@@ -179,7 +154,7 @@ export default function VideogameCreate () {
                 {input.genres.map(el=>
                     <div>
                     <p>{el}</p>
-                    <button onClick={()=> {handleDelete(el)}}>X</button>
+                    <label onClick={()=> {handleDelete(el)}}>X</label>
                     </div>
                     )}
             </form>

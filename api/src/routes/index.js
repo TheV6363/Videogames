@@ -3,16 +3,19 @@ const { Router } = require('express');
 // Ejemplo: const authRouter = require('./auth.js');
 const axios = require("axios");
 const {Videogame, Genre} = require ("../db.js");
+// const fetch = require("node-fetch");
 
 const {API_KEY} = process.env;
 
 const router = Router();
 
+
+
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
-
+// 1° ME TRAIGO LA INFORMACION DE LA API
 const getApiInfo = async () => {
-    const apiUrlUno = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page_size=40&page=1`)
+    const apiUrlUno = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page_size=40&page=1`) // VER COMO HACE QUE TE TRAE LOS 40
     const apiUrlDos = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page_size=40&page=2`)
     const apiUrlTres = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page_size=20&page=3`)
     const apiUrlTotal = apiUrlUno.data.results.concat(apiUrlDos.data.results, apiUrlTres.data.results)
@@ -20,7 +23,6 @@ const getApiInfo = async () => {
         return {
             id:el.id,
             name:el.name,
-            description:el.description,
             released:el.released,
             rating:el.rating,
             platforms:el.platforms.map(el=>el.platform.name),
@@ -29,7 +31,7 @@ const getApiInfo = async () => {
         }
     }); return infoTotal
 }
-
+// 2° ME GUARDO TODOS LOS VIDEOJUEGOS QUE TENGAN ALGUN GENERO
 const getDbInfo = async()=>{
     return await Videogame.findAll({
         includes:{
@@ -41,14 +43,14 @@ const getDbInfo = async()=>{
         }
     })
 }
-
+// 3° ME TRAIGO TODOS LOS VIDEOJUEGOS 
 const getAllVideogames = async()=>{
     const infoTotal1 = await getApiInfo();
     const dbInfo = await getDbInfo();
     const infoTotal2 = infoTotal1.concat(dbInfo);
     return infoTotal2;
 }
-
+// UNA RUTA QUE TRAE TODOS LOS VIDEOJUEGOS Y ADEMAS PUEDO HACER ALGUN PEDIDO EN ESPECIAL POR QUERY.
 router.get("/Videogames", async (req,res)=>{
     const name = req.query.name
     let videogameTotal = await getAllVideogames ();
@@ -56,17 +58,16 @@ router.get("/Videogames", async (req,res)=>{
         let videogameName = await videogameTotal.filter(el => el.name.toLowerCase().includes(name.toLowerCase()))
         videogameName.length ?
         res.status(200).send(videogameName) :
-        res.status(404).send("No esta el videogame, sory");
+        res.status(404).send(videogameName);
         // TRAEME TAL RECETA POR QUERY, SI NO LA ENCONTRAS RESPONDEME CON EL 404...
     }else{
         res.status(201).send(videogameTotal)
     } // SI NO PEDIMOS NADA POR QUERY, TRAEME TODAS LAS RECETAS
 })
-
+// UNA RUTA QUE TRAE TODOS LOS GENEROS?
 router.get("/Genres", async (req,res)=>{
     const generoApi = await axios.get(`https://api.rawg.io/api/genres?key=${API_KEY}`)
     generoApi.data.results.forEach(async (element) => {
-        // console.log(element.name)
         await Genre.findOrCreate({
          where: {name: element.name}
      })
@@ -75,6 +76,7 @@ router.get("/Genres", async (req,res)=>{
      const allGeneros = await Genre.findAll();
      res.send(allGeneros);
 })
+
 
 router.post(`/Videogames`, async (req,res)=> {
     let{                              // LE PASO LOS DATOS QUE QUIERO MANDAR POR BODY
@@ -86,7 +88,8 @@ router.post(`/Videogames`, async (req,res)=> {
             img,    
             genres,
             createdInDb
-        } = req.body
+        } = req.body;
+        if(!name){ return res.status(404).send("El nombre es un campo requerido")}
     let videogamesCreated = await Videogame.create ({
             name,                          // CREO LO QUE QUIERO PONER EN DB
             description,
@@ -98,12 +101,12 @@ router.post(`/Videogames`, async (req,res)=> {
             createdInDb
     })
     let genreDb= await Genre.findAll({
-        where: { name: genres }         // BUSCO EN TODAS LAS DIETAS 
+        where: { name: genres }         // BUSCO EN TODAS LOS GENEROS 
     })
-    videogamesCreated.addGenre(genreDb)   // AGREGO LA RECETA A MI BASE DE DIETAS
+    videogamesCreated.addGenre(genreDb)   // AGREGO EL VIDEOJUEGO A MI BASE DE GENEROS
     res.send("Tu videojuego fue creado con exito")
 })
-
+// TE TRAES UN VIDEOJUEGO POR ID, Y LO BUSCA DE TAL FORMA SI VIENE CON ID RARO O CON ID COMUN
 router.get("/Videogames/:id", async (req,res) => {
     try {
         const idVideogame = req.params.id;
@@ -120,15 +123,26 @@ router.get("/Videogames/:id", async (req,res) => {
                 released: juegos.released,
                 image: juegos.background_image,
                 platforms: juegos.platforms.map(e => e.platform.name + " - "),
-                description: juegos.description,
+                description: juegos.description_raw,
                 rating: juegos.rating,
                 genres : juegos.genres.map(genre => genre.name + " - ")
             }
+            res.send(juegos)
         }
-        res.send(juegos)
         }catch(error){
             next(error)
     }
+})
+router.delete("/Videogames/:id", async (req,res)=>{
+    const id = req.params.id
+    console.log(id);
+    // filtrar entre todos los elementos de mi base de datos , el id que coincida y eliminarlo.
+    await Videogame.destroy({
+        where:{id:id}
+    })
+        res.status(200).send("Tu videogame se elimino correctamente")
+        // res.status(404).send("No esta el videogame, sory")
+        
 })
 
 module.exports = router;

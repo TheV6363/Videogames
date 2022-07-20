@@ -2,6 +2,7 @@ import React from "react";
 import {getNameGames} from "../actions/index"
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import styles from './Paginado.module.css'
 
 export default function SearchBar () {
 const [name, setName] = useState("")
@@ -19,8 +20,9 @@ function handleSubmit (e){
 
     return(
         <div>
-            <input type="Text" placeholder="Buscar..." onChange={e=> handleInputChange(e)}/>
-            <button type="Submit" onClick={e=> handleSubmit(e)}> Submit </button>
+            <input className= {styles.btn} type="Text" placeholder="Buscar..." onChange={e=> handleInputChange(e)}/>
+            <button className= {styles.btn} type="Submit" onClick={e=> handleSubmit(e)}> Submit </button>
         </div>
+
     )
 };

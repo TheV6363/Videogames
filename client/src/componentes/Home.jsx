@@ -7,6 +7,10 @@ import {Link} from "react-router-dom"
 import Paginado from "./Paginado";
 import SearchBar from "./SearchBar"
 
+
+import styles from './Paginado.module.css'
+import Styles from './Home.module.css'
+
 export default function Home () {
 
 
@@ -54,36 +58,29 @@ function handlesort2(e){
 }
 
 
-
-
-    
     return(
-        <div>
-            <Link to="/videogames">Crea tu personaje</Link>
+        <div className={Styles.sf}>
+            <h1 className={styles.letra}>APP DE VIDEOGAMES</h1>
+            <br></br>
+            <Link className={styles.btn} to="/videogames">Crea tu personaje</Link>
             <SearchBar/>
-                <Paginado
-                    videogamesPerPage ={videogamesPerPage}
-                    AllVideogames ={AllVideogames?.length}
-                    paginado ={paginado}
-                />
-            <button onClick= {e=> handleClick(e)}>
+            <button className={styles.btn} onClick= {e=> handleClick(e)}>
             Refresh all videogames
             </button>
-
-            <select onChange={e => handlesort(e)}>
+            <select className={styles.btn} onChange={e => handlesort(e)}>
                 <option value="asc">ascendente</option>
                 <option value="descendente">descendente</option>
             </select>
-            <select onChange={e => handleFilterByCreate(e)}>
+            <select className={styles.btn} onChange={e => handleFilterByCreate(e)}>
                 <option value="Todos">todos</option>
                 <option value="creadoDB">creados en DB</option>
                 <option value="creadosAPI">Creados en la API</option>
             </select>
-            <select onChange={e=> handlesort2(e)}>
+            <select className={styles.btn} onChange={e=> handlesort2(e)}>
                 <option value="+/-">mejores Rankeados</option>
                 <option value="-/+">peores Rankeados</option>
             </select>
-            <select onChange={e=> handleFilterByGenre(e)}>
+            <select className={styles.btn} onChange={e=> handleFilterByGenre(e)}>
                 <option value="Action">accion</option>
                 <option value="Adventure">aventura</option>
                 <option value="RPG">RPG</option>
@@ -100,10 +97,16 @@ function handlesort2(e){
                 <option value="Strategy">estrategia</option>
                 <option value="Casual">casual</option>
             </select>
+            <Paginado
+                    videogamesPerPage ={videogamesPerPage}
+                    AllVideogames ={AllVideogames?.length}
+                    paginado ={paginado}
+                />
             { currentVideogames && currentVideogames.map(e=>{
-            return(
             
-            <Link to={"/home/" + e.id}>
+            return(
+            <div className={styles.container}>
+            <Link className={styles.sub} to={"/Videogames/" + e.id}>
             <Card
             key={e.id}
             name= {e.name}
@@ -112,11 +115,12 @@ function handlesort2(e){
             platforms= {e.platforms}
             img= {e.img}
             genres= {e.genres}
+            id= {e.id}
             />
             </Link>
+            </div>
             )})}
-            
-        
+
         </div>
     )
 };

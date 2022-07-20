@@ -1,6 +1,6 @@
 const inicialState = {     
-    videogames:[],
-    videogames2:[],
+    videogames:[], // ESTADO ACTUAL
+    videogames2:[], // ESTADO LLENO
     genres:[],
     detail:[]
  };
@@ -19,6 +19,11 @@ function rootReducer(state = inicialState, action){
             return{
                 ...state,
                 detail: action.payload? action.payload : action.payload
+            }
+            case "CLEAR":
+            return{
+                ...state,
+                detail:{}
             }
             case "POST_VIDEOGAMES":
             return{
