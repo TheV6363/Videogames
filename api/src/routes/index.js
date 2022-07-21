@@ -31,7 +31,7 @@ const getApiInfo = async () => {
         }
     }); return infoTotal
 }
-// 2° ME GUARDO TODOS LOS VIDEOJUEGOS QUE TENGAN ALGUN GENERO
+// 2° ME GUARDO TODOS LOS GENEROS
 const getDbInfo = async()=>{
     return await Videogame.findAll({
         includes:{
@@ -135,14 +135,11 @@ router.get("/Videogames/:id", async (req,res) => {
 })
 router.delete("/Videogames/:id", async (req,res)=>{
     const id = req.params.id
-    console.log(id);
     // filtrar entre todos los elementos de mi base de datos , el id que coincida y eliminarlo.
     await Videogame.destroy({
         where:{id:id}
     })
-        res.status(200).send("Tu videogame se elimino correctamente")
-        // res.status(404).send("No esta el videogame, sory")
-        
+        res.status(200).send("Tu videogame se elimino correctamente")      
 })
 
 module.exports = router;

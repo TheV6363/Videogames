@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import {Link , useHistory} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {postVideogame , getGenres} from "../actions"
-import styles from './Paginado.module.css'
+import styles from './VideogameCreate.module.css'
 
 function validate (input){
     let errors ={};
@@ -104,45 +104,45 @@ export default function VideogameCreate () {
            
             <form>
                 <div>
-                    <label className= {styles.name}>nombre</label>
-                    <input className= {styles.name} type="text" value={input.name} name="name" onChange={e=> handleChange(e)}/>
+                    <label >NAME:  </label>
+                    <input  type="text" value={input.name} name="name" onChange={e=> handleChange(e)}/>
                     {errors.name && (
                         <p>{errors.name}</p>
                     )}
                 </div>
                 <div>
-                    <label className= {styles.name}>descripcion</label>
-                    <input className= {styles.name} type="text" value={input.description} name="description" onChange={e=> handleChange(e)}/>
+                    <label >DESCRIPTION:  </label>
+                    <input type="text" value={input.description} name="description" onChange={e=> handleChange(e)}/>
                        {errors.description && (
                         <p>{errors.description}</p>
                     )}
                 </div>
                 <div>
-                    <label className= {styles.name}>lanzamiento</label>
-                    <input className= {styles.name} type="date" value={input.released} name="released" onChange={e=> handleChange(e)}/>
+                    <label >RELEASED:  </label>
+                    <input  type="date" value={input.released} name="released" onChange={e=> handleChange(e)}/>
                 </div>
                 <div>
-                    <label className= {styles.name}>rating</label>
-                    <input className= {styles.name} type="text" value={input.rating} name="rating" onChange={e=> handleChange(e)}/>
+                    <label >RATING:  </label>
+                    <input  type="text" value={input.rating} name="rating" onChange={e=> handleChange(e)}/>
                        {errors.rating && (
                         <p>{errors.rating}</p>
                     )}
                 </div>
                 <div>
-                    <label className= {styles.name}>imagen</label>
-                    <input className= {styles.name} type="text" value={input.img} name="img" onChange={e=> handleChange(e)}/>
+                    <label >IMAGE:  </label>
+                    <input type="text" value={input.img} name="img" onChange={e=> handleChange(e)}/>
                 </div>
-                <label >Genre </label>
+                <label >GENRE:  </label>
                 <select onChange={(e)=> handleSelect(e)}>
                   {allGenres?.map((g) => (<option value={g.name}>{g.name}</option>))}
               </select> 
               <div/> 
-               <label>Platform </label>
+               <label>PLATFORM:  </label>
               <select onChange={(e)=> handleSelect2(e)}>
                    {platforms?.map((platforms) => (<option value={platforms.name}>{platforms.name}</option>))}
                </select> 
                <div/>
-                <button className= {styles.btn} type="Submit" onClick={(e)=>handleSubmit(e)}> Submit </button>
+                <button type="Submit" onClick={(e)=>handleSubmit(e)}> Submit </button>
                 {input.platforms.map(el=>
                     <div>
                     <p>{el}</p>

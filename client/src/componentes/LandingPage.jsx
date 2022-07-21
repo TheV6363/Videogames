@@ -5,7 +5,7 @@ import {titulo,boton} from './LandingPage.module.css'
 
 
 
-export default function LandingPage () {
+export default function LandingPage (props) {
 
     return(
         <div>
@@ -18,3 +18,5 @@ export default function LandingPage () {
         </div>
     )
 };
+
+

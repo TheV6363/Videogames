@@ -53,7 +53,7 @@ export function getNameGames (name){
           payload: json.data
       })
   }
-   }catch(error){
+   }catch(error){   ///noooo
       console.log(error)
    }
   }

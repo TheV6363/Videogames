@@ -2,7 +2,7 @@ import React from "react";
 import Card from "./Cards";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import {getVideogames, filtradoXGenero, filterByCreate, orderByAsc, orderByRating} from "../actions/index"
+import {getVideogames, filtradoXGenero, filterByCreate, orderByAsc, orderByRating, getGenres} from "../actions/index"
 import {Link} from "react-router-dom"
 import Paginado from "./Paginado";
 import SearchBar from "./SearchBar"
@@ -15,6 +15,7 @@ export default function Home () {
 
 
 const Dispatch = useDispatch ();
+const allGenres = useSelector((state=>state.genres));
 const AllVideogames = useSelector((state=>state.videogames));
 const [orden, setOrden] = useState('')
 const [currentPage, setCurrentPage] =useState(1);
@@ -28,6 +29,10 @@ const paginado = (pageNumber) => {
 };
 useEffect(() => {
     Dispatch(getVideogames());
+    },[Dispatch])
+
+useEffect(() => {
+    Dispatch(getGenres());
     },[Dispatch])
 
 function handleClick(e) {
@@ -81,21 +86,7 @@ function handlesort2(e){
                 <option value="-/+">peores Rankeados</option>
             </select>
             <select className={styles.btn} onChange={e=> handleFilterByGenre(e)}>
-                <option value="Action">accion</option>
-                <option value="Adventure">aventura</option>
-                <option value="RPG">RPG</option>
-                <option value="Puzzle">puzzle</option>
-                <option value="Shooter">tiros</option>
-                <option value="Platformer">platformer</option>
-                <option value="Indie">indie</option>
-                <option value="Massively multiplayer">multijugador</option>
-                <option value="Sports">deportes</option>
-                <option value="Racing">carreras</option>
-                <option value="Simulation">simulacion</option>
-                <option value="Arcade">arcade</option>
-                <option value="Fighting">pelea</option>
-                <option value="Strategy">estrategia</option>
-                <option value="Casual">casual</option>
+                {allGenres?.map((g) => (<option value={g.name}>{g.name}</option>))}
             </select>
             <Paginado
                     videogamesPerPage ={videogamesPerPage}
@@ -106,16 +97,12 @@ function handlesort2(e){
             
             return(
             <div className={styles.container}>
-            <Link className={styles.sub} to={"/Videogames/" + e.id}>
+            <Link className={styles.sub} to={"/Detail/" + e.id}>
             <Card
             key={e.id}
             name= {e.name}
-            released= {e.released}
-            rating= {e.rating}
-            platforms= {e.platforms}
             img= {e.img}
             genres= {e.genres}
-            id= {e.id}
             />
             </Link>
             </div>
