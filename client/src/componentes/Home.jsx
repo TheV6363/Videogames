@@ -43,6 +43,7 @@ function handleClick(e) {
 function handleFilterByGenre(e){
     e.preventDefault();
     Dispatch(filtradoXGenero(e.target.value))
+    setCurrentPage(1);
 }
 
 function handleFilterByCreate(e){
