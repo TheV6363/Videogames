@@ -4,7 +4,7 @@ import axios from "axios";
 //DISPATCH, EXPORTA SOLO LAS ACCIONES AL REDUCER SIN TENER QUE IMPORTARLAS
 export function getVideogames (){
     return async function(dispatch){
-        var json = await axios.get("http://localhost:3001/Videogames");
+        var json = await axios.get("/Videogames");
      return dispatch({
         type: "GET_VIDEOGAMES",
         payload: json.data
@@ -13,7 +13,7 @@ export function getVideogames (){
 }
 export function getVideogamesById (id){
     return async function(dispatch){
-        var json = await axios.get("http://localhost:3001/Videogames/"+id);
+        var json = await axios.get("/Videogames/"+id);
      return dispatch({
         type: "GET_VIDEOGAMES_BY_ID",
         payload: json.data
@@ -29,7 +29,7 @@ export function Clear(){
 // FUNCION PARA TRARME TODOS LOS GENEROS
 export function getGenres (){
     return async function(dispatch){
-        var genres = await axios.get("http://localhost:3001/Genres");
+        var genres = await axios.get("/Genres");
      return dispatch({
         type: "GET_GENRES",
         payload: genres.data
@@ -39,7 +39,7 @@ export function getGenres (){
 // FUNCION PARA CREAR EL VIDEOJUEGO
 export function postVideogame (payload){
     return async function(dispatch){
-        var createVideogames = await axios.post("http://localhost:3001/Videogames", payload);
+        var createVideogames = await axios.post("/Videogames", payload);
         console.log(createVideogames)
         return createVideogames;
 }
@@ -47,7 +47,7 @@ export function postVideogame (payload){
 export function getNameGames (name){
     try{
       return async function(dispatch){
-          var json = await axios.get("http://localhost:3001/Videogames?name=" + name);
+          var json = await axios.get("/Videogames?name=" + name);
        return dispatch({
           type: "GET_NAME_GAMES",
           payload: json.data
@@ -59,7 +59,7 @@ export function getNameGames (name){
   }
 export function deleteVideogames (id){
     return async function(dispatch){
-        var response = await axios.delete("http://localhost:3001/Videogames/"+ id);
+        var response = await axios.delete("/Videogames/"+ id);
         return response;
 } 
 }
