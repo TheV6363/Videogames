@@ -72,7 +72,7 @@ router.get("/Videogames", async (req,res)=>{
     catch(error){
         console.log(error)
        }
-    })
+    });
     
     // UNA RUTA QUE TRAE TODOS LOS GENEROS?
 router.get("/Genres", async (req,res)=>{
