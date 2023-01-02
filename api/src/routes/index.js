@@ -62,9 +62,14 @@ router.get("/Videogames", async (req,res)=>{
         // TRAEME TAL RECETA POR QUERY, SI NO LA ENCONTRAS RESPONDEME CON EL 404...
     }else{
         res.status(201).send(videogameTotal)
-    } // SI NO PEDIMOS NADA POR QUERY, TRAEME TODAS LAS RECETAS
-})
-// UNA RUTA QUE TRAE TODOS LOS GENEROS?
+    }
+     // SI NO PEDIMOS NADA POR QUERY, TRAEME TODAS LAS RECETAS
+    
+     // UNA RUTA QUE TRAE TODOS LOS GENEROS?
+    })
+    .patch((error) =>{
+     console.log(error);
+    });
 router.get("/Genres", async (req,res)=>{
     const generoApi = await axios.get(`https://api.rawg.io/api/genres?key=${API_KEY}`)
     generoApi.data.results.forEach(async (element) => {
