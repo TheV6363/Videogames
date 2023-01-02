@@ -67,9 +67,9 @@ router.get("/Videogames", async (req,res)=>{
     
      // UNA RUTA QUE TRAE TODOS LOS GENEROS?
     })
-    .patch((error) =>{
-     console.log(error);
-    });
+    // .catch((error) =>{
+    //  console.log(error);
+    // }); ==================> POR ACA MASOMENOS-.-
 router.get("/Genres", async (req,res)=>{
     const generoApi = await axios.get(`https://api.rawg.io/api/genres?key=${API_KEY}`)
     generoApi.data.results.forEach(async (element) => {
