@@ -70,7 +70,7 @@ router.get("/Videogames", async (req,res)=>{
     }
 
     catch(error){
-        next(error)
+        console.log(error)
        }
     })
     
