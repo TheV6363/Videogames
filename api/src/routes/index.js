@@ -52,6 +52,7 @@ const getAllVideogames = async()=>{
 }
 // UNA RUTA QUE TRAE TODOS LOS VIDEOJUEGOS Y ADEMAS PUEDO HACER ALGUN PEDIDO EN ESPECIAL POR QUERY.
 router.get("/Videogames", async (req,res)=>{
+    try{
     const name = req.query.name
     let videogameTotal = await getAllVideogames ();
     if (name){
@@ -63,13 +64,17 @@ router.get("/Videogames", async (req,res)=>{
     }else{
         res.status(201).send(videogameTotal)
     }
+    
      // SI NO PEDIMOS NADA POR QUERY, TRAEME TODAS LAS RECETAS
     
-     // UNA RUTA QUE TRAE TODOS LOS GENEROS?
+    }
+
+    catch(error){
+        next(error)
+       }
     })
-    // .catch((error) =>{
-    //  console.log(error);
-    // }); ==================> POR ACA MASOMENOS-.-
+    
+    // UNA RUTA QUE TRAE TODOS LOS GENEROS?
 router.get("/Genres", async (req,res)=>{
     const generoApi = await axios.get(`https://api.rawg.io/api/genres?key=${API_KEY}`)
     generoApi.data.results.forEach(async (element) => {
