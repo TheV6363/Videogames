@@ -15,9 +15,9 @@ const router = Router();
 // Ejemplo: router.use('/auth', authRouter);
 // 1° ME TRAIGO LA INFORMACION DE LA API
 const getApiInfo = async () => {
-    const apiUrlUno = await axios.get(`https://api.rawg.io/api/games?key=4db1916ef04242c6aabb8efc4f12110f&page_size=40&page=1`) // VER COMO HACE QUE TE TRAE LOS 40
-    const apiUrlDos = await axios.get(`https://api.rawg.io/api/games?key=4db1916ef04242c6aabb8efc4f12110f&page_size=40&page=2`)
-    const apiUrlTres = await axios.get(`https://api.rawg.io/api/games?key=4db1916ef04242c6aabb8efc4f12110f&page_size=20&page=3`)
+    const apiUrlUno = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page_size=40&page=1`) // VER COMO HACE QUE TE TRAE LOS 40
+    const apiUrlDos = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page_size=40&page=2`)
+    const apiUrlTres = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page_size=20&page=3`)
     const apiUrlTotal = apiUrlUno.data.results.concat(apiUrlDos.data.results, apiUrlTres.data.results)
     const infoTotal = await apiUrlTotal.map(el => {
         return {
