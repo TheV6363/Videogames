@@ -94,7 +94,8 @@ router.get("/Genres", async (req,res)=>{
 
 
 router.post(`/Videogames`, async (req,res)=> {
-    let{                              // LE PASO LOS DATOS QUE QUIERO MANDAR POR BODY
+   try{
+     let{                              // LE PASO LOS DATOS QUE QUIERO MANDAR POR BODY
             name,
             description,
             released,
@@ -120,6 +121,10 @@ router.post(`/Videogames`, async (req,res)=> {
     })
     videogamesCreated.addGenre(genreDb)   // AGREGO EL VIDEOJUEGO A MI BASE DE GENEROS
     res.send("Tu videojuego fue creado con exito")
+}
+catch(error){
+    console.log(error)
+   }
 })
 // TE TRAES UN VIDEOJUEGO POR ID, Y LO BUSCA DE TAL FORMA SI VIENE CON ID RARO O CON ID COMUN
 router.get("/Videogames/:id", async (req,res) => {
@@ -149,12 +154,17 @@ router.get("/Videogames/:id", async (req,res) => {
     }
 })
 router.delete("/Videogames/:id", async (req,res)=>{
-    const id = req.params.id
+    try{
+        const id = req.params.id
     // filtrar entre todos los elementos de mi base de datos , el id que coincida y eliminarlo.
     await Videogame.destroy({
         where:{id:id}
     })
-        res.status(200).send("Tu videogame se elimino correctamente")      
+        res.status(200).send("Tu videogame se elimino correctamente")
+    }
+    catch(error){
+        console.log(error)
+       }      
 })
 
 module.exports = router;
