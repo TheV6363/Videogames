@@ -8,7 +8,7 @@
     text-shadow: 10px 6px 8px rgb(0, 0, 0);
 }
 .boton{
-    background: transparent;
+    /* background: transparent; */
     
     color: rgb(0, 0, 0);
     border: none;
@@ -20,11 +20,11 @@
     
     
 }
-.boton:hover{ 
+/* .boton:hover{ 
     background: rgb(0, 0, 0);
     color: rgb(255, 0, 0);
     box-shadow: 10px 10px 10px 10px rgb(0, 0, 0);
-}
+} */
 
 
     
