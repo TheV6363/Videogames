@@ -24,6 +24,8 @@ const indexOfLastVideogames = currentPage * videogamesPerPage;
 const indexOfFirstVideogames = indexOfLastVideogames - videogamesPerPage;
 const currentVideogames = AllVideogames?.slice(indexOfFirstVideogames, indexOfLastVideogames);
 
+// console.log(allGenres)
+
 const paginado = (pageNumber) => {
     setCurrentPage(pageNumber)
 };
@@ -71,7 +73,7 @@ function handlesort2(e){
             <Link className={styles.btn} to="/videogames">Crea tu personaje</Link>
             <SearchBar/>
             <button className={styles.btn} onClick= {e=> handleClick(e)}>
-            Refresh all videogames
+            Refresh videogames
             </button>
             <select className={styles.btn} onChange={e => handlesort(e)}>
                 <option value="asc">ascendente</option>
