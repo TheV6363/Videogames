@@ -29,7 +29,7 @@ const { conn } = require('./src/db.js');
 // PARA LEVANTAR INTERNAMENTE
 
 conn.sync({ force: true }).then(() => {
-  server.listen(process.env.PORT, () => {
+  server.listen(process.env.PORT || 3000 , () => {
     console.log("%s listening at 3000"); // eslint-disable-line no-console
   });
 });

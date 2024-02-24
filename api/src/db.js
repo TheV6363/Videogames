@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 // const { DATABASE_URL } = process.env;
-const {DB_USER , DB_PASSWORD, DB_HOST} = process.env;
+const {DB_USER , DB_PASSWORD, DB_HOST, DB_NAME} = process.env;
 
 // const sequelize = new Sequelize(
 //   // postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/pokemon,
@@ -42,15 +42,16 @@ let sequelize =
         ssl: true,
       })
     : new Sequelize(
-        `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/development`,
+        `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/videogames`,
         { logging: false, native: false }
       );
+
 
 //NUEVOOOOOOOOOOOOOOOO
 
 //LO DE ABAJO ERA LO QUE ESTABA BIEN
 
-// const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/countries`, {
+// const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/videogames`, {
 //   logging: false, // set to console.log to see the raw SQL queries
 //   native: false, // lets Sequelize know we can use pg-native for ~30% more speed
 // }); // SUSTITUIR PARA HACER EL DEPLOY
