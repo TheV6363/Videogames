@@ -9,7 +9,7 @@ import axios from "axios"
 import dotenv from "dotenv";
 dotenv.config();
 
-axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
+axios.defaults.baseURL = "https://videogames5.onrender.com" || "http://localhost:3001";
 
 // PROVIDER: TODA LA APP VA A TENER ACCESO A MIS ESTADOS
 ReactDOM.render(
