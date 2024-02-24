@@ -68,7 +68,7 @@ function handlesort2(e){
 
     return(
         <div className={Styles.sf}>
-            <h1 className={styles.letra}>APP DE VIDEOGAMES</h1>
+            {/* <h1 className={styles.letra}>APP DE VIDEOGAMES</h1> */}
             <br></br>
             <Link className={styles.btn} to="/videogames">Crea tu personaje</Link>
             <SearchBar/>
