@@ -70,7 +70,7 @@ function handlesort2(e){
         <div className={Styles.sf}>
             <h1 className={styles.letra}>APP DE VIDEOGAMES</h1>
             <br></br>
-            <Link className={styles.btn} to="/videogames">Crea tu personaje</Link>
+            <Link className={styles.btn} to="/videogames">Crea tu Videojuego</Link>
             <SearchBar/>
             <button className={styles.btn} onClick= {e=> handleClick(e)}>
             Refresh videogames
